@@ -1,0 +1,14 @@
+manifest:
+  version: "0.13"
+
+  remotes:
+    - name: zephyrproject
+      url-base: https://github.com/nxp-upstream
+
+  projects:
+    - name: zephyr
+      remote: zephyrproject
+      revision: nxpcup-2026
+      import:
+        name-whitelist:
+          - hal_nxp

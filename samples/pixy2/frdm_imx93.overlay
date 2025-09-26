@@ -1,0 +1,73 @@
+/*
+ * Copyright 2025 NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+&lpi2c3 {
+	pinctrl-0 = <&i2c3_default>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+
+&lpspi3 {
+	pinctrl-0 = <&spi3_default>;
+	pinctrl-names = "default";
+
+	/* optional, may help with debugging. When controller is inactive
+	 * (i.e. no data is being received/transmitted), the line will be
+	 * pulled HIGH or LOW depending on the pin's pull configuration
+	 * (pull-up or pull-down)
+	 */
+	tristate-output;
+	tx-fifo-size = <8>;
+	rx-fifo-size = <8>;
+	status = "okay";
+};
+
+&pinctrl {
+	i2c3_default: i2c3_default {
+		/*
+		 * LPI2C3.SDA <---> EXP_GPIO_IO00
+		 * LPI2C3.SCL ----> EXP_GPIO_IO01
+		 */
+		group0 {
+			pinmux = <&iomuxc1_gpio_io00_lpi2c_sda_lpi2c3_sda>,
+				 <&iomuxc1_gpio_io01_lpi2c_scl_lpi2c3_scl>;
+
+			/* pin operates in open-drain mode:
+			 *  https://www.ti.com/lit/an/slva704/slva704.pdf
+			 */
+			drive-open-drain;
+
+			/* pin is input and output */
+			input-enable;
+
+			/* impacts the pin's switching rate */
+			slew-rate = "slightly_fast";
+			drive-strength = "x5";
+		};
+	};
+
+	spi3_default: spi3_default {
+		group0 {
+			/*
+			 * LPSPI3.PCS0 ---> EXP_GPIO_IO08
+			 * LPSPI3.SIN  <--- EXP_GPIO_IO09
+			 * LPSPI3.SOUT ---> EXP_GPIO_IO10
+			 * LPSPI3.SCK  ---> EXP_GPIO_IO11
+			 */
+			pinmux = <&iomuxc1_gpio_io08_lpspi_pcs_lpspi3_pcs0>,
+				 <&iomuxc1_gpio_io09_lpspi_sin_lpspi3_sin>,
+				 <&iomuxc1_gpio_io10_lpspi_sout_lpspi3_sout>,
+				 <&iomuxc1_gpio_io11_lpspi_sck_lpspi3_sck>;
+
+			/* enable pull-up resistance  */
+			bias-pull-up;
+
+			/* impacts the pin's switching rate */
+			slew-rate = "slightly_fast";
+			drive-strength = "x5";
+		};
+	};
+};

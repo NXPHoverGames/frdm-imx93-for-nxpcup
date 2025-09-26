@@ -1,0 +1,35 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "creationInfo": {
+    "created": "2025-09-26T11:15:16Z",
+    "creators": [
+      "Organization: NXP"
+    ],
+    "licenseListVersion": "3.20"
+  },
+  "name": "FRDM-IMX93-for-NXP-CUP-1.0",
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://nxp.com/spdx/276afc65-2263-4894-b627-ef0a547e3ee7",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-package-276afc65-2263-4894-b627-ef0a547e3ee7",
+      "name": "FRDM-IMX93-for-NXP-CUP",
+      "versionInfo": "1.0",
+      "licenseConcluded": "(Apache-2.0)",
+      "licenseDeclared": "(Apache-2.0)",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: NXP",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-package-276afc65-2263-4894-b627-ef0a547e3ee7"
+    }
+  ]
+}

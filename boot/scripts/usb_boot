@@ -1,0 +1,19 @@
+uuu_version 1.0.1
+
+# @_flash.bin => boot container
+# @_zephyr.bin => Zephyr image
+
+# boot u-boot SPL and then u-boot proper
+SDPS: boot -f _flash.bin
+SDPV: delay 1000
+SDPV: write -f _flash.bin -skipspl
+SDPV: jump
+
+# FB mode - download image
+FB: ucmd setenv loadaddr 0xd0000000
+FB: ucmd setenv fastboot_buffer ${loadaddr}
+FB: download -f _zephyr.bin
+# IMPORTANT: this is asynchronous because u-boot never returns
+# after
+FB: acmd go ${loadaddr}
+FB: done

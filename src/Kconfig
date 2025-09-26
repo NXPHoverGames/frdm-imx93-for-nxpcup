@@ -1,0 +1,4 @@
+# TODO: add your configurations here if need be
+
+# mandatory, includes all of the Zephyr stuff
+source "Kconfig.zephyr"

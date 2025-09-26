@@ -1,0 +1,77 @@
+name: Sample build test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Zephyr requires at least python 3.10
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup environment
+        shell: pwsh
+        run: ./scripts/setup.ps1
+
+      - name: Build sample
+        shell: pwsh
+        run: |
+          . $PWD\ENV\Scripts\Activate.ps1
+          west build -p -b frdm_imx93//a55 .\samples\hello_world
+
+  linux-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Zephyr requires at least python 3.10
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup environment
+        run: |
+          sudo apt-get update
+          ./scripts/setup.sh
+
+      - name: Build sample
+        run: |
+          source $(pwd)/../.venv/bin/activate
+          west build -p -b frdm_imx93//a55 ./samples/hello_world
+
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        run: |
+          ./scripts/docker_setup.sh
+
+      - name: Build sample
+        run: |
+          docker compose -f ./docker/compose.yaml up --detach
+
+          docker compose -f ./docker/compose.yaml exec zephyr bash -c \
+            "source ../.venv/bin/activate &&\
+             west build -p -b frdm_imx93//a55 samples/hello_world"
+
+          docker compose -f ./docker/compose.yaml down

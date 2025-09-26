@@ -1,0 +1,9 @@
+config NXPCUP_DIRECTION_SAMPLE
+	bool "NXPCUP direction sample"
+	default y
+	help
+	  Set to y if the hbridge sample should demonstrate how to change
+	  the car's direction (forward or backwards). If set to n, the
+	  sample will demonstrate how to change the car's power.
+
+source "Kconfig.zephyr"

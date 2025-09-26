@@ -1,0 +1,5 @@
+.rst-content .admonition.custom-note > .admonition-title {
+    background-color: #00cc99;
+    color: white;
+    font-weight: bold;
+}

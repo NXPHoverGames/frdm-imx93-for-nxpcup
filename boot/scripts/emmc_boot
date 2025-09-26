@@ -1,0 +1,14 @@
+uuu_version 1.0.1
+
+# @_flash.bin => boot container
+
+# boot into u-boot proper
+SDPS: boot -f _flash.bin
+
+# FB now available, write boot container to 32KB offset
+FB: ucmd setenv fastboot_dev mmc
+FB: ucmd setenv mmcdev ${emmc_dev}
+FB: ucmd mmc dev ${emmc_dev}
+FB: flash bootloader _flash.bin
+
+FB: done

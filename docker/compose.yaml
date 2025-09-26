@@ -1,0 +1,21 @@
+services:
+  zephyr:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+
+    # with the current Dockerfile, the default CMD is bash with
+    # the default ENTRYPOINT being /bin/sh. Therefore, trying to
+    # start a container with "docker compose up" will return immediately
+    # This is because, without a tty, bash will run in non-interactive
+    # mode and, therefore, will immediately return 0 since there's nothing
+    # to do.
+    #
+    # because of this, we need to create a tty so that bash will run in
+    # interactive mode, thus allowing us to stop the container from exiting
+    # imediately. Thanks to this, we can then execute our commands in a
+    # separate terminal pane.
+    tty: true
+
+    volumes:
+      - ../:/home/root/nxpcup_root/nxpcup

@@ -1,0 +1,14 @@
+config NXPCUP_PIXY2_I2C_TRANSPORT
+	bool "Use I2C as the underlying transport protocol"
+	default y
+	help
+	  Set to y if you wish to use I2C to communicate with the Pixy2
+	  camera.
+
+config NXPCUP_PIXY2_SPI_TRANSPORT
+	bool "Use SPI as the underlying transport protocol"
+	help
+	  Set to y if you wish to use SPI to communicate with the Pixy2
+	  camera.
+
+source "Kconfig.zephyr"

@@ -1,0 +1,39 @@
+/*
+ * Copyright 2025 NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+&gpio2 {
+	status = "okay";
+};
+
+&pinctrl {
+	tpm3_default: tpm3_default {
+		group0 {
+			/*
+			 * TPM3.CH0 ---> EXP_GPIO_IO04
+			 * TPM3.CH1 ---> EXP_GPIO_IO20
+			 * TPM3.CH2 ---> EXP_GPIO_IO12
+			 */
+			pinmux = <&iomuxc1_gpio_io04_tpm_ch_tpm3_ch0>,
+				 <&iomuxc1_gpio_io20_tpm_ch_tpm3_ch1>,
+				 <&iomuxc1_gpio_io12_tpm_ch_tpm3_ch2>;
+
+			/* enable pull-up resistance */
+			bias-pull-up;
+
+			/* impacts the pin's switching rate */
+			slew-rate = "slightly_fast";
+			drive-strength = "x5";
+		};
+	};
+};
+
+&tpm3 {
+	compatible = "nxp,kinetis-tpm";
+	#pwm-cells = <3>;
+	pinctrl-0 = <&tpm3_default>;
+	pinctrl-names = "default";
+	status = "okay";
+};
