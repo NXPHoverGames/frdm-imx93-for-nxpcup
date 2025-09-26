@@ -6,6 +6,12 @@
 #
 # [1]: https://docs.zephyrproject.org/latest/develop/getting_started/index.html
 
+# where to download the boot container from
+$BOOT_CONTAINER_URL="https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup/releases/download/rel-v1.0"
+
+# name of the boot container archive
+$BOOT_CONTAINER_NAME="frdm-imx93-release-v1.0.zip"
+
 # where to download uuu from
 $UUU_URL="https://github.com/nxp-imx/mfgtools/releases/latest/"
 
@@ -188,6 +194,26 @@ if ($LASTEXITCODE -ne 0) {
 	throw "Failed to install toolchain: $LASTEXITCODE"
 } else {
 	Write-Host "OK" -ForegroundColor green
+}
+
+# download and extract the boot image
+Write-Host "Downloading and extracting boot container..." -NoNewline
+if (-not(Test-Path -path "$crt_dir\packages\$BOOT_CONTAINER_NAME")) {
+	curl.exe -f --silent -L --output packages\$BOOT_CONTAINER_NAME "$BOOT_CONTAINER_URL/$BOOT_CONTAINER_NAME"
+	if ($LASTEXITCODE -ne 0) {
+		Write-Host "FAIL" -ForegroundColor red
+		throw "Failed to download boot container: $LASTEXITCODE"
+	}
+
+	7z e "packages\$BOOT_CONTAINER_NAME" -o"$crt_dir\boot" "flash.bin" *> $null
+	if ($LASTEXITCODE -ne 0) {
+		Write-Host "FAIL" -ForegroundColor red
+		throw "Failed to extract boot container: $LASTEXITCODE"
+	}
+
+	Write-Host "OK" -ForegroundColor green
+} else {
+	Write-Host "SKIP" -ForegroundColor yellow
 }
 
 # check if uuu is present. If not, download it
