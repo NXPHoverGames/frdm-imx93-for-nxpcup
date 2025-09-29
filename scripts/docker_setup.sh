@@ -17,7 +17,7 @@ COMPOSE_FILE="./docker/compose.yaml"
 
 main() {
 	# download uuu if need be
-	download_uuu "$UUU_NAME" "$WORK_DIR/nxpcup/boot/$UUU_NAME"
+	download_uuu "$UUU_NAME" "$CRT_DIR/boot/$UUU_NAME"
 
 	# create image and start container
 	log "creating image and starting container..."

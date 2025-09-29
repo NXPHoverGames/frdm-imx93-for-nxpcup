@@ -60,7 +60,7 @@ setup_west() {
 	if [ ! -d "$WORK_DIR/.west" ]; then
 		log "initializing west at $WORK_DIR..."
 
-		if ! (cd $WORK_DIR && run_command "west init -l $WORK_DIR/nxpcup"); then
+		if ! (cd $WORK_DIR && run_command "west init -l $CRT_DIR"); then
 			log_err "failed to initialize west"
 			exit 1
 		fi
@@ -98,7 +98,7 @@ main() {
 	fi
 
 	if [ "$NO_UUU_DOWNLOAD" = "0" ]; then
-		download_uuu "$UUU_NAME" "$WORK_DIR/nxpcup/boot/$UUU_NAME"
+		download_uuu "$UUU_NAME" "$CRT_DIR/boot/$UUU_NAME"
 	fi
 
 	setup_west

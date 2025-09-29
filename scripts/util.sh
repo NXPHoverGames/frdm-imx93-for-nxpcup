@@ -9,6 +9,9 @@ NONE="\e[0m"
 # work directory
 WORK_DIR=$(dirname $(pwd))
 
+# current directory
+CRT_DIR=$(pwd)
+
 log() {
 	printf "$@""\n"
 }
