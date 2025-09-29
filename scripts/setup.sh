@@ -19,6 +19,9 @@ NO_PACKAGE_INSTALL=0
 # don't download uuu if set to 1
 NO_UUU_DOWNLOAD=0
 
+# don't download the boot container if set to 1
+NO_CONTAINER_DOWNLOAD=0
+
 # name of the uuu binary to download
 UUU_NAME="uuu"
 
@@ -97,6 +100,10 @@ main() {
 		install_packages "${PACKAGES[@]}"
 	fi
 
+	if [ "$NO_CONTAINER_DOWNLOAD" = "0" ]; then
+		download_boot_container
+	fi
+
 	if [ "$NO_UUU_DOWNLOAD" = "0" ]; then
 		download_uuu "$UUU_NAME" "$CRT_DIR/boot/$UUU_NAME"
 	fi
@@ -110,13 +117,15 @@ print_usage() {
 	echo " -h                print help information"
 	echo " -p                skip package installation"
 	echo " -d                skip uuu download"
+	echo " -b                skip boot container download"
 	echo " -u                download specified uuu binary"
 }
 
 # parse arguments
-while getopts "hpdu:" opt; do
+while getopts "hbpdu:" opt; do
 	case "$opt" in
 	h) print_usage; exit 0 ;;
+	b) NO_CONTAINER_DOWNLOAD=1 ;;
 	p) NO_PACKAGE_INSTALL=1 ;;
 	d) NO_UUU_DOWNLOAD=1 ;;
 	u) UUU_NAME="${OPTARG}" ;;

@@ -51,6 +51,33 @@ install_packages() {
 	return 0
 }
 
+download_boot_container() {
+	# where to download the container from
+	local url="https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup/releases/download/rel-v1.0"
+	# name of the container archive to download
+	local container_name="frdm-imx93-release-v1.0.zip"
+
+	if [ ! -f "$CRT_DIR/boot/flash.bin" ]; then
+		log "downloading and extracting boot container..."
+
+		run_command "curl -f -L --output $CRT_DIR/boot/$container_name $url/$container_name" || {\
+			log_fail "failed to download $container_name from $url";
+			return 1;
+		}
+
+		run_command "unzip $CRT_DIR/boot/$container_name flash.bin -d $CRT_DIR/boot" || {\
+			log_fail "failed to extract boot container from $container_name";
+			return 1;
+		}
+
+		# archive should no longer be useful at this point - drop it
+		rm $CRT_DIR/boot/$container_name || {\
+			log_fail "failed to remove $container_name";
+			return 1;
+		}
+	fi
+}
+
 download_uuu() {
 	# where to download uuu from
 	local url="https://github.com/nxp-imx/mfgtools/releases/latest/download"
