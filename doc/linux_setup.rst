@@ -65,7 +65,7 @@ To clone the project repository:
 
 .. code-block:: bash
 
-   git clone https://github.com/LaurentiuM1234/nxpcup.git && cd nxpcup
+   git clone https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup.git && cd frdm-imx93-for-nxpcup
 
 .. warning::
 
@@ -159,7 +159,7 @@ Below you may find some snippets, which demonstrate how the script can be run:
 
 .. note::
 
-   Please make sure your current directory is ``~/work/repos/nxpcup_root/nxpcup``.
+   Please make sure your current directory is ``~/work/repos/nxpcup_root/frdm-imx93-for-nxpcup``.
 
 .. note::
 
@@ -200,7 +200,7 @@ see the following, newly created directories:
    ├── .venv
    ├── .west
    ├── modules
-   ├── nxpcup
+   ├── frdm-imx93-for-nxpcup
    ├── zephyr
    └── zephyr-sdk-0.17.2
 
@@ -212,7 +212,7 @@ Their meaning is described below:
 * ``zephyr``: source code of the Zephyr RTOS
 * ``zephyr-sdk-0.17.2``: toolchain directory
 
-Additionally, the ``uuu`` binary is placed under: ``nxpcup/boot/uuu``.
+Additionally, the ``uuu`` binary is placed under: ``frdm-imx93-for-nxpcup/boot/uuu``.
 
 .. note::
 
@@ -259,7 +259,7 @@ environment for native development:
 
 .. code-block:: bash
 
-    git clone https://github.com/LaurentiuM1234/nxpcup.git && cd nxpcup
+    git clone https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup.git && cd frdm-imx93-for-nxpcup
 
 3. Run the ``setup.sh`` script:
 
@@ -343,7 +343,7 @@ Below you may find some snippets, which demonstrate how the script can be run:
 
 .. note::
 
-   Please make sure your current directory is ``~/work/repos/nxpcup_root/nxpcup``.
+   Please make sure your current directory is ``~/work/repos/nxpcup_root/frdm-imx93-for-nxpcup``.
 
 .. code-block:: text
 
@@ -362,15 +362,15 @@ The Docker image is built using the Dockerfile found under ``docker/Dockerfile``
 and is based on ``Ubuntu 22.04``. The work directory is found under
 ``/home/root/nxpcup_root``.
 
-When starting a container, Docker will mount the ``nxpcup`` directory inside
-the container under ``/home/root/nxpcup_root/nxpcup``. Therefore, any
+When starting a container, Docker will mount the ``frdm-imx93-for-nxpcup`` directory inside
+the container under ``/home/root/nxpcup_root/frdm-imx93-for-nxpcup``. Therefore, any
 changes made to this directory on the host side will also be visible inside
 the container. The reverse is also applicable.
 
 .. warning::
 
    Changes that are made on the container side **WILL NOT** be persistent
-   unless they target the directory structure under ``/home/root/nxpcup_root/nxpcup``.
+   unless they target the directory structure under ``/home/root/nxpcup_root/frdm-imx93-for-nxpcup``.
    Consequently, if you power off your container, you'll lose all of the
    changes made to the container' file system.
 
@@ -402,7 +402,7 @@ environment for Docker development:
 
 .. code-block:: bash
 
-   mkdir -p ~/work/repos/nxpcup_root && cd ~/work/repos/nxpcup_root
+   git clone https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup.git && cd frdm-imx93-for-nxpcup
 
 3. Install Docker by following the steps from `here <https://docs.docker.com/engine/install/>`__
 
