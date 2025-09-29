@@ -21,7 +21,7 @@ RUN <<EOF
 EOF
 
 # create and switch to the working directory
-WORKDIR /home/root/nxpcup_root/nxpcup
+WORKDIR /home/root/nxpcup_root/frdm-imx93-for-nxpcup
 
 # copy required files
 COPY ../scripts/setup.sh ./scripts/setup.sh

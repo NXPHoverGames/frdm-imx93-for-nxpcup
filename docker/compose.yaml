@@ -18,4 +18,4 @@ services:
     tty: true
 
     volumes:
-      - ../:/home/root/nxpcup_root/nxpcup
+      - ../:/home/root/nxpcup_root/frdm-imx93-for-nxpcup
