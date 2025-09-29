@@ -108,8 +108,8 @@ project as well.
 
 .. _NXP CUP: https://nxpcup.nxp.com/
 .. _FRDM-IMX93: https://www.nxp.com/design/design-center/development-boards-and-designs/frdm-i-mx-93-development-board:FRDM-IMX93
-.. _Issues: https://github.com/LaurentiuM1234/nxpcup/issues
-.. _GitHub repository: https://github.com/LaurentiuM1234/nxpcup
+.. _Issues: https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup/issues
+.. _GitHub repository: https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup
 .. _Zephyr project: https://www.zephyrproject.org/
 .. _Zephyr RTOS: https://www.zephyrproject.org/
 .. _Contributing to Zephyr: https://docs.zephyrproject.org/latest/contribute/index.html#
