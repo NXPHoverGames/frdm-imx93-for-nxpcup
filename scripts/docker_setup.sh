@@ -16,6 +16,9 @@ UUU_NAME="uuu"
 COMPOSE_FILE="./docker/compose.yaml"
 
 main() {
+	# download the boot container if need be
+	download_boot_container
+
 	# download uuu if need be
 	download_uuu "$UUU_NAME" "$CRT_DIR/boot/$UUU_NAME"
 
