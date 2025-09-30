@@ -66,7 +66,7 @@ install the toolchain, clone the required repositories, etc. To do so, run [#]_:
 
    Make sure that the work directory path does not contain any whitespaces,
    otherwise the sample build step may fail. For instance, paths such as:
-   ``C:\Users\TEST USER\Desktop\nxpcup_root\nxpcup`` should be avoided.
+   ``C:\Users\TEST USER\Desktop\nxpcup_root\frdm-imx93-for-nxpcup`` should be avoided.
 
    As long as this constraint applies, you may place the work directory
    wherever you see fit. Additionally, you may choose to use a different
@@ -146,8 +146,8 @@ To clone the project repository:
 
 .. code-block:: powershell
 
-   git clone https://github.com/LaurentiuM1234/nxpcup.git
-   cd nxpcup
+   git clone https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup.git
+   cd frdm-imx93-for-nxpcup
 
 .. warning::
 
@@ -180,7 +180,7 @@ major functionalities:
 
 .. note::
 
-   Please make sure your current directory is ``~\Desktop\nxpcup_root\nxpcup``.
+   Please make sure your current directory is ``~\Desktop\nxpcup_root\frdm-imx93-for-nxpcup``.
 
 .. admonition:: For PowerShell 5.1 users
    :class: custom-note
@@ -229,7 +229,7 @@ see the following, newly created directories:
    .
    ├── .west
    ├── modules
-   ├── nxpcup
+   ├── frdm-imx93-for-nxpcup
    ├── zephyr
    └── zephyr-sdk-0.17.2
 
@@ -240,7 +240,7 @@ Their meaning is described below:
 * ``zephyr``: source code of the Zephyr RTOS
 * ``zephyr-sdk-0.17.2``: toolchain directory
 
-Additionally, two new directories have been created under ``~\Desktop\nxpcup_root\nxpcup``:
+Additionally, two new directories have been created under ``~\Desktop\nxpcup_root\frdm-imx93-for-nxpcup``:
 ``ENV`` and ``packages``. Their meaning is described below:
 
 * ``ENV``: result of the virtual environment creation
@@ -320,8 +320,8 @@ environment for native development:
 
 .. code-block:: powershell
 
-   git clone https://github.com/LaurentiuM1234/nxpcup.git
-   cd nxpcup
+   git clone https://github.com/NXPHoverGames/frdm-imx93-for-nxpcup.git
+   cd frdm-imx93-for-nxpcup
 
 3. Remove alias for the ``wget`` command:
 
