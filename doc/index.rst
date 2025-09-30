@@ -38,6 +38,7 @@ Check out the following tutorials to help you with the software development:
 - 📘 :doc:`Devicetree basics <tutorials/devicetree_basics>`
 - 📘 :doc:`Zephyr FRDM-IMX93 devicetree files <tutorials/zephyr_and_devicetrees>`
 - 📘 :doc:`The Zephyr device driver model <tutorials/zephyr_device_drivers>`
+- 📘 :doc:`Zephyr devicetree bindings <tutorials/zephyr_dt_bindings>`
 
 Connecting the kit compontents
 ------------------------------
@@ -159,3 +160,4 @@ project as well.
    tutorials/devicetree_basics
    tutorials/zephyr_and_devicetrees
    tutorials/zephyr_device_drivers
+   tutorials/zephyr_dt_bindings
