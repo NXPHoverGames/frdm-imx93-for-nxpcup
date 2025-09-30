@@ -29,4 +29,4 @@ COPY ../scripts/util.sh ./scripts/util.sh
 COPY ../west.yml .
 
 # prepare the environment
-RUN ./scripts/setup.sh -p -d
+RUN ./scripts/setup.sh -p -d -b
