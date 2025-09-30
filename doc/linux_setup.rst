@@ -417,7 +417,7 @@ environment for Docker development:
 .. code-block:: bash
 
    docker compose -f ./docker/compose.yaml up --detach
-   docker compose -f ./docker/compose.yaml exec zephyr bash -c "source ENV/bin/activate && west build -p -b frdm_imx93//a55 samples/hello_world"
+   docker compose -f ./docker/compose.yaml exec zephyr bash -c "source ../.venv/bin/activate && west build -p -b frdm_imx93//a55 samples/hello_world"
    docker compose -f ./docker/compose.yaml down
 
 .. _vm-development:
