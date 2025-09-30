@@ -2,9 +2,9 @@ Zephyr FRDM-IMX93 devicetree files
 ==================================
 
 Throughout this guide we'll assume that you have the work directory
-placed under ``~/nxpcup_root`` and that you have run the setup script
-according to :ref:`preparing-environment-linux` or
-:ref:`preparing-the-environment-windows`.
+placed under ``~/nxpcup_root`` (Linux) or ``~\Desktop\nxpcup_root`` (Windows)
+and that you have run the setup script according to :ref:`preparing-environment-linux`
+or :ref:`preparing-the-environment-windows`.
 
 Board and SoC devicetrees
 -------------------------
@@ -29,9 +29,19 @@ view of the hardware.
 
 For NXP SoCs, the DTSIs are found under: 
 
-.. code-block:: text
+.. tabs::
 
-   ~/nxpcup_root/zephyr/dts/<arch>/nxp/
+      .. group-tab:: Linux
+
+         .. code-block:: text
+
+            ~/nxpcup_root/zephyr/dts/<arch>/nxp/
+
+      .. group-tab:: Windows
+
+         .. code-block:: text
+
+            ~\Desktop\nxpcup_root\zephyr\dts\<arch>\nxp\
 
 , where ``arch`` is the name of the CPU cluster's architecture (e.g. ``arm``,
 ``arm64`` etc..). Since this project uses the Cortex-A55 cluster, the name of
@@ -39,22 +49,52 @@ our targeted architecture will be ``arm64``.
 
 Based on this, we can find the i.MX93 Cortex-A55 SoC DTSI under:
 
-.. code-block:: text
+.. tabs::
 
-   ~/nxpcup_root/zephyr/dts/arm64/nxp_mimx93_a55.dts
+      .. group-tab:: Linux
+
+         .. code-block:: text
+
+	    ~/nxpcup_root/zephyr/dts/arm64/nxp/nxp_mimx93_a55.dts
+
+      .. group-tab:: Windows
+
+         .. code-block:: text
+
+            ~\Desktop\nxpcup_root\zephyr\dts\arm64\nxp\nxp_mimx93_a55.dts
 
 On the other hand, for NXP boards, the DTS are found under:
 
-.. code-block:: text
+.. tabs::
 
-   ~/nxpcup_root/zephyr/boards/nxp/<board_name>
+      .. group-tab:: Linux
+
+         .. code-block:: text
+
+	    ~/nxpcup_root/zephyr/boards/nxp/<board_name>
+
+      .. group-tab:: Windows
+
+         .. code-block:: text
+
+            ~\Desktop\nxpcup_root\zephyr\boards\nxp\<board_name>
 
 , where ``board_name`` is the name of the targeted board, which, for FRDM-IMX93
 would be ``frdm_imx93``. Therefore, we can find the FRDM-IMX93 board DTS under:
 
-.. code-block:: bash
+.. tabs::
 
-  ~/nxpcup_root/zephyr/boards/nxp/frdm_imx93/frdm_imx93_mimx9352_a55.dts
+      .. group-tab:: Linux
+
+         .. code-block:: text
+
+	    ~/nxpcup_root/zephyr/boards/nxp/frdm_imx93/frdm_imx93_mimx9352_a55.dts
+
+      .. group-tab:: Windows
+
+         .. code-block:: text
+
+            ~\Desktop\nxpcup_root\zephyr\boards\nxp\frdm_imx93\frdm_imx93_mimx9352_a55.dts
 
 Inspecting the i.MX93 SoC DTSI
 ------------------------------
