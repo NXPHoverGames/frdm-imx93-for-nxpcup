@@ -104,6 +104,8 @@ functionalities:
 2. Downloading ``uuu``, which is the binary used to boot the board.
 3. Setting up the ``west`` environment, which is required for building the
    application.
+4. Downloading and extracting the boot container (image), which is used in
+   the board boot procedure.
 
 .. warning::
 
@@ -142,6 +144,8 @@ The script can be invoked with three options [#]_:
    (i.e.: functionality 2)
 3. ``-u UUU_NAME``: if specified, the script will use the name passed through
    the ``UUU_NAME`` argument to download the ``uuu`` binary.
+4. ``-b``: if specified, the script will skip the boot container download step
+   (i.e.: functionality 4)
 
 To print its usage, you can invoke the script with the ``-h`` option. The output
 is shown below:
@@ -153,6 +157,7 @@ is shown below:
     -h                print help information
     -p                skip package installation
     -d                skip uuu download
+    -b                skip boot container download
     -u                download specified uuu binary
 
 Below you may find some snippets, which demonstrate how the script can be run:
