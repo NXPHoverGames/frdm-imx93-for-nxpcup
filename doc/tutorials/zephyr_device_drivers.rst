@@ -85,7 +85,8 @@ found in the DTS to the format expected by the Zephyr device drivers:
 and so on and so forth.
 
 We can then use the converted compatible value to look for a device driver.
-To do so, you can run the following command inside ``~/nxpcup_root/zephyr``:
+To do so, you can run the following command inside
+``~/work/repos/nxpcup_root/zephyr`` (Linux) or ``~\Desktop\nxpcup_root\zephyr`` (Windows):
 
 .. code-block:: bash
 

@@ -40,7 +40,7 @@ In Zephyr, the root directory of the devicetree bindings can be found under:
 
 .. code-block:: text
 
-   ~/nxpcup_root/zephyr/dts/bindings/
+   ~/work/repos/nxpcup_root/zephyr/dts/bindings/
 
 with all the devicetree binding files being organized in subdirectories,
 one for each subsystem.
@@ -56,7 +56,7 @@ binding, we have two options:
 
       .. code-block:: bash
 
-         # run this inside ~/nxpcup_root/zephyr
+         # run this inside ~/work/repos/nxpcup_root/zephyr
          git grep nxp,tpm-timer -- dts/bindings
 
    .. group-tab:: Windows
@@ -92,7 +92,7 @@ using ``find``:
 
       .. code-block:: bash
 
-         # run this inside ~/nxpcup_root/zephyr
+         # run this inside ~/work/repos/nxpcup_root/zephyr
          find dts/bindings -name nxp,tpm-timer.yaml
 
    .. group-tab:: Windows

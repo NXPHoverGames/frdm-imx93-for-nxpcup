@@ -2,9 +2,10 @@ Zephyr FRDM-IMX93 devicetree files
 ==================================
 
 Throughout this guide we'll assume that you have the work directory
-placed under ``~/nxpcup_root`` (Linux) or ``~\Desktop\nxpcup_root`` (Windows)
-and that you have run the setup script according to :ref:`preparing-environment-linux`
-or :ref:`preparing-the-environment-windows`.
+placed under ``~/work/repos/nxpcup_root`` (Linux) or
+``~\Desktop\nxpcup_root`` (Windows) and that you have run the setup
+script according to :ref:`preparing-environment-linux` or
+:ref:`preparing-the-environment-windows`.
 
 Board and SoC devicetrees
 -------------------------
@@ -35,7 +36,7 @@ For NXP SoCs, the DTSIs are found under:
 
          .. code-block:: text
 
-            ~/nxpcup_root/zephyr/dts/<arch>/nxp/
+            ~/work/repos/nxpcup_root/zephyr/dts/<arch>/nxp/
 
       .. group-tab:: Windows
 
@@ -55,7 +56,7 @@ Based on this, we can find the i.MX93 Cortex-A55 SoC DTSI under:
 
          .. code-block:: text
 
-	    ~/nxpcup_root/zephyr/dts/arm64/nxp/nxp_mimx93_a55.dts
+	    ~/work/repos/nxpcup_root/zephyr/dts/arm64/nxp/nxp_mimx93_a55.dts
 
       .. group-tab:: Windows
 
@@ -71,7 +72,7 @@ On the other hand, for NXP boards, the DTS are found under:
 
          .. code-block:: text
 
-	    ~/nxpcup_root/zephyr/boards/nxp/<board_name>
+	    ~/work/repos/nxpcup_root/zephyr/boards/nxp/<board_name>
 
       .. group-tab:: Windows
 
@@ -88,7 +89,7 @@ would be ``frdm_imx93``. Therefore, we can find the FRDM-IMX93 board DTS under:
 
          .. code-block:: text
 
-	    ~/nxpcup_root/zephyr/boards/nxp/frdm_imx93/frdm_imx93_mimx9352_a55.dts
+	    ~/work/repos/nxpcup_root/zephyr/boards/nxp/frdm_imx93/frdm_imx93_mimx9352_a55.dts
 
       .. group-tab:: Windows
 
