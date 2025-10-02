@@ -189,6 +189,258 @@ all pins, which is why it's recommended that you first check which
 configuration options are available for your pins before attempting to
 configure it.
 
+Configuring the i.MX93 pins in Zephyr
+-------------------------------------
+
+As previously mentioned, the software (OS) is the entity in charge of
+choosing the appropriate pin configuration and multiplexing options.
+In the context of Zephyr, this is usually done by the device drivers
+using the pin control API. To tell the drivers how to configure the pins
+(i.e. which configuration to use), the users will usually describe the
+desired pin state (i.e. pin configuration) in the devicetree. The driver
+will then take this information and apply it to the hardware via the pin
+control API.
+
+For an user's perspective, all we usually have to do is add the desired
+pin configuration of our device in the devicetree. The driver will then
+take care of the rest.
+
+Now, let's assume we are interested in working with the LPSPI3 module
+(i.e. LPSPI, instance number 3) and wish to connect an SPI slave to our
+FRDM-IMX93. The first step is to establish which signals we'll be needing.
+For SPI communication, that'll usually be:
+
+1. MOSI (Master Out, Slave In)
+2. MISO (Master In, Slave Out)
+3. SCK (SPI clock)
+4. CS (chip select)
+
+The next step would be to check if our module (i.e. LPSPI) uses a different
+naming scheme for these signals. To do so, we can open up the `i.MX93 TRM`_
+at **Chapter 61**, **Low Power Serial Peripheral Interface**. Reading a bit
+about the LPSPI module and looking at **61.2.1 Block Diagram**, we can deduce
+that our signals are named as follows:
+
+1. MOSI -> SOUT
+2. MISO -> SIN
+3. SCK -> SCK (no name change here)
+4. CS -> PCS
+
+Now, we need to look at the pins from :ref:`frdm-imx93-board-schematic`
+and check which of them can be used to route our signals from the LPSPI3
+module. Looking at the **iMX93 IOMUX** table from the `i.MX93 schematic`_,
+we can see that the following pins are available:
+
+1. EXP_GPIO_IO08: can be used for the spi3.pcs0 signal
+2. EXP_GPIO_IO09: can be used for the spi3.sin signal
+3. EXP_GPIO_IO10: can be used for the spi3.sout signal
+4. EXP_GPIO_IO11: can be used for the spi3.sck signal
+
+The next step is to configure our devicetree. Assuming our application is located
+under ``src/``, we can use the devicetree overlay template that's already provided:
+``frdm_imx93.overlay``. To create a new pin control state for our device driver
+to use, we need to add a new devicetree node under the ``pinctrl`` node
+(you can see its definition in ``nxp_mimx93_a55.dtsi``). This new node must have
+the following format:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       my_node_label: my_node_name {
+           group0 {
+               /* pin control state information goes here */
+           };
+       };
+   };
+
+where:
+
+* ``my_node_label``: label of my newly introduced node. You can use whatever
+  name you see fit, but we recommend you choose something suggestive like
+  ``spi3_default`` for this particular case.
+
+* ``my_node_name``: name of the newly introduced node. You can use whatever
+  name you see fit, but we recommend you choose something suggestive like
+  ``spi3_default`` for this particular case.
+
+Your newly created node must also contain the ``group0`` node as its child.
+This is the node you'll be using to actually specify the pin control state
+information.
+
+To provide pin multiplexing information (i.e. tell the hardware that it needs
+to route spi3.pcs0 through EXP_GPIO_IO08, spi3.sin through EXP_GPIO_IO09 and so
+on), we can use the ``pinmux`` property, which has the following format:
+
+.. code-block:: text
+
+   pinmux = <&node_label1>, <&node_label2>, <&node_label3>, ..., <&node_labelN>;
+
+where:
+
+* ``node_labelX``: reference to a node containing pin multiplexing information
+  for a single pin (note: X is the index of the node here).
+
+Therefore, since we have 4 signals we need to route through the expansion
+header (i.e. SIN, SOUT, PCS, and SCK), the ``pinmux`` property should reference
+4 nodes in total.
+
+To get the node labels, we need to open up the following DTSI, which contains
+the definitions of all of the possible pin muxing configurations for the i.MX93
+SoC:
+
+.. tabs::
+
+      .. group-tab:: Linux
+
+         .. code-block:: text
+
+            ~/work/repos/nxpcup_root/modules/hal/nxp/dts/nxp/nxp_imx/mimx9352cvuxk-pinctrl.dtsi
+
+      .. group-tab:: Windows
+
+         .. code-block:: text
+
+            ~\Desktop\nxpcup_root\modules\hal\nxp\dts\nxp\nxp_imx\mimx9352cvuxk-pinctrl.dtsi
+
+Upon opening the file, we can see that we have a lot of devicetree nodes.
+To find the ones we're interested in, we need to look for the node label
+that contains the name of the pad and the name of the signal we want to
+route through it in its name. For instance, let's say we're interested
+in the GPIO_IO08 pin and the spi3.pcs0 signal. Therefore, the node label
+we want to find should contain the words ``gpio_io08`` and ``spi3_pcs0``
+(note: the dot becomes an underscore here) in its name. Upon taking a closer
+look, we can see that the ``iomuxc1_gpio_io08_lpspi_pcs_lpspi3_pcs0`` node
+label fits this criteria.
+
+Applying the same rationale to the rest of the pins, we will end up with the
+following node labels:
+
+1. ``iomuxc1_gpio_io08_lpspi_pcs_lpspi3_pcs0`` (for EXP_GPIO_IO08 and spi3.pcs0)
+2. ``iomuxc1_gpio_io09_lpspi_sin_lpspi3_sin`` (for EXP_GPIO_IO09 and spi3.sin)
+3. ``iomuxc1_gpio_io10_lpspi_sout_lpspi3_sout`` (for EXP_GPIO_IO10 and spi3.sout)
+4. ``iomuxc1_gpio_io11_lpspi_sck_lpspi3_sck`` (for EXP_GPIO_IO11 and spi3.sck)
+
+Now, all that's left to do is add them in the devicetree overlay as follows:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       spi3_default: spi3_default {
+           group0 {
+               pinmux = <&iomuxc1_gpio_io08_lpspi_pcs_lpspi3_pcs0>,
+                        <&iomuxc1_gpio_io09_lpspi_sin_lpspi3_sin>,
+                        <&iomuxc1_gpio_io10_lpspi_sout_lpspi3_sout>,
+                        <&iomuxc1_gpio_io11_lpspi_sck_lpspi3_sck>;
+           };
+       };
+   };
+
+This is all we have to do for the pin multiplexing bit. If we also want
+to perform pin configuration (e.g. enable pull-up/pull-down resistors,
+change slew rate, etc..), we can do so by adding some properties to the
+``group0`` node. To view the full list of allowed properties, you can
+have a look at the ``nxp,imx93-pinctrl.yaml`` devicetree binding (check
+under the ``properties`` and ``property-allowlist`` keys). You may find
+some examples below:
+
+1. **Enabling the pull-up resistor**:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       spi3_default: spi3_default {
+           group0 {
+               /* pinmux intentionally omitted */
+               bias-pull-up;
+           };
+       };
+   };
+
+2. **Enabling the pull-down resistor**:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       spi3_default: spi3_default {
+           group0 {
+               /* pinmux intentionally omitted */
+               bias-pull-down;
+           };
+       };
+   };
+
+3. **Enabling open-drain configuration**:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       spi3_default: spi3_default {
+           group0 {
+               /* pinmux intentionally omitted */
+               drive-open-drain;
+           };
+       };
+   };
+
+4. **Setting drive strength and slew rate**:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       spi3_default: spi3_default {
+           group0 {
+               /* pinmux intentionally omitted */
+               slew-rate = "fast";
+               drive-strength = "x5";
+           };
+       };
+   };
+
+5. **Setting drive strength and slew rate and enabling pull-down resistor**:
+
+.. code-block:: devicetree
+
+   &pinctrl {
+       spi3_default: spi3_default {
+           group0 {
+               /* pinmux intentionally omitted */
+               slew-rate = "fast";
+               drive-strength = "x5";
+               bias-pull-down;
+           };
+       };
+   };
+
+Finally, after defining the pin control state nodes, we need to tell the
+device driver of the LPSPI3 module that we want to use this particular
+configuration. To do so, we need to add two new properties to the ``lpspi3``
+node: ``pinctrl-0`` and ``pinctrl-names`` as shown below:
+
+.. code-block:: devicetree
+
+   &lpspi3 {
+       pinctrl-0 = <&spi3_default>;
+       pinctrl-names = "default";
+
+       /* always make sure the node's status is set to "okay". Otherwise,
+        * the device driver won't be initialized and your pins will not be
+        * configured.
+        */
+       status = "okay";
+   };
+
+The ``pinctrl-0`` property must contain a reference to the parent of our
+``group0`` node definining the pin control state. In this case, the label
+of its parent is set to ``spi3_default``. As for the ``pinctrl-names``
+property: you can set it to ``default``.
+
+Further reading
+---------------
+
+For more information, check out the following pages:
+
+1. https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html
+
 .. _i.MX93 TRM: https://www.nxp.com/webapp/Download?colCode=IMX93RM
 .. _i.MX93 schematic: https://www.nxp.com/webapp/Download?colCode=FRDM-iMX93-DESIGN-FILES
 .. [#] You can find this table on the last page
